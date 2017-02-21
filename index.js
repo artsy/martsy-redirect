@@ -7,16 +7,15 @@ const secure = Boolean(process.env.SECURE || true)
 const proxy = require('http-proxy').createProxyServer()
 
 app.get('*', (req, res) => {
-  const target = url.resolve(base, req.url)
   if (req.get('User-Agent').match(uaStr)) {
     proxy.web(req, res, {
-      target,
+      target: base,
       headers: { host: url.parse(base).host },
       secure
     })
   } else {
     res.setHeader('Strict-Transport-Security', 'max-age=0')
-    res.redirect(301, target)
+    res.redirect(301, url.resolve(base, req.url))
   }
 })
 
