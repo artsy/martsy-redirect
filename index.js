@@ -12,7 +12,7 @@ app.use((req, res) => {
       target: base,
       headers: {
         host: url.parse(base).host,
-        'X-Access-Token': req.get('X-Access-Token')
+        'X-Access-Token': req.get('X-Access-Token') || ''
       },
       secure
     })
