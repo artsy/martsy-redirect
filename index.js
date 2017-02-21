@@ -10,7 +10,10 @@ app.use((req, res) => {
   if (req.get('User-Agent').match(uaStr)) {
     proxy.web(req, res, {
       target: base,
-      headers: { host: url.parse(base).host },
+      headers: {
+        host: url.parse(base).host,
+        'X-Access-Token': req.get('X-Access-Token')
+      },
       secure
     })
   } else {
