@@ -6,7 +6,7 @@ const uaStr = process.env.EIGEN_UA_STRING || 'Artsy-Mobile'
 const secure = Boolean(process.env.SECURE || true)
 const proxy = require('http-proxy').createProxyServer()
 
-app.get('*', (req, res) => {
+app.use((req, res) => {
   if (req.get('User-Agent').match(uaStr)) {
     proxy.web(req, res, {
       target: base,
